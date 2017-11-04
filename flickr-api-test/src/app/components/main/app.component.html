@@ -1,0 +1,92 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to Flickr-Api-Challenge-Test!
+  </h1>
+  <!-- If this goes well, I got a new job :)!-->
+</div>
+
+<h2>Find images on Flickr by tag(s): </h2>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+               Search Filter
+            </h3>
+        </div>
+        <div class="panel-body">
+          <form (ngSubmit)="onSubmit()" role="form">
+            <div class="row">
+              <div class="col-xs-6 col-md-4">
+                  <div class="form-group">
+                      <label for="tag" class="col-xs-6 col-md-4 control-label">Tag</label>
+                  </div>
+                  <div class="col-xs-12 col-md-8">
+                      <input class="form-control" type="search" [(ngModel)]="queryItem.tag" name="tag" required>
+                  </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                  <div class="form-group">
+                      <label for="userId" class="col-xs-6 col-md-4 control-label">User Id</label>
+                  </div>
+                  <div class="col-xs-12 col-md-8">
+                      <input class="form-control" type="search" [(ngModel)]="queryItem.userId" name="userId">
+                  </div>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-xs-12 col-md-12 text-left">
+                  <input type="hidden" [(ngModel)]="queryItem.itemsPerPage" name="itemsPerPage" value="1">              
+                  <button type="submit" class="btn btn-primary">Search</button>
+                  <button type="button" class="btn btn-default" (click)="onClearData()">Cancel</button>
+              </div>
+            </div>
+            </form>
+          </div>
+                  
+          <div *ngIf="queryItem.tag.invalid" class="alert alert-danger">
+            <div *ngIf="queryItem.tag.errors.required">
+              Tag is required.
+            </div>    
+          </div>      
+          
+          <div id="results" class="alert alert-warning" *ngIf="(!queryItem.success)">    
+              <div>
+                <span>Sorry, no data was found!</span>
+              </div>                                                 
+          </div>    
+      </div>
+    <br/>      
+    <br/>
+
+      
+    <div class="row" id="divDatos">
+      <div id="results" class="row" *ngIf="(listItems?.length > 0)">
+        <table id="table" class="table">
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Image</th>
+                <th>Owner</th>
+                <th>Uploaded Date</th>
+                <th>Date Taken</th>
+                <th>Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listItems">
+                <td>{{item.tag}}</td>
+                <td><a href="/detail/?tag={{item.tag}}&userId={{item.userId}}" target="_blank"><img src="{{item.imageUrl}}" alt="preview"></a></td>
+                <td>{{item.ownerName}}</td>
+                <td>{{item.uploadDate}}</td>
+                <td>{{item.dateTaken}}</td>
+                <td>{{item.views}}</td>
+              </tr>
+            </tbody>
+        </table>    
+      </div>               
+    </div>
+
+</div>

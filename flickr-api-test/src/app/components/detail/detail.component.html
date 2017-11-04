@@ -1,0 +1,16 @@
+<div class="container">
+  <fieldset>
+    <legend>List of photos</legend>
+      <div class="row">
+        <div *ngFor="let photo of listItems">
+          <div class="col s4">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{photo.url}}" title="{{photo.title}}" >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </fieldset>
+</div>
