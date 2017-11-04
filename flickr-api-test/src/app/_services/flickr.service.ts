@@ -60,23 +60,29 @@ export class FlickrService{
          let url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.apiKey}` +
                    `&tags=${queryItem.tag}&extras=url_q&sort=interestingness-desc&user_id=${queryItem.userId}` +
                    `&format=json&nojsoncallback=1`;
-        
+    
          return this.http.get(url)
             .map(res => res.json())
             .map((val) => {        
                 if(val.stat === 'ok'){     
-                    //If the request stat is ok 
-                    return val.photos.photo.map((photo: any) => {
-                        return {
-                            tag: queryItem.tag,
-                            imageUrl: photo.url_q,
-                            title: photo.title
-                        }
-                    });
+                    //If the request status is ok 
+                    if(val.photos.photo.length > 0){     
+                        return val.photos.photo.map((photo: any) => {
+                            return {
+                                tag: queryItem.tag,
+                                imageUrl: photo.url_q,
+                                title: photo.title
+                            }
+                        });
+                    }
+                    else{
+                          // If isn't.. return null
+                          return null;
+                    }
                 }
                 else{ 
-                    // Otherwise
-                    return [];
+                    // Otherwise.. return null
+                    return null;
                 }
             });          
     }

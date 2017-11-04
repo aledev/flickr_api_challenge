@@ -78,7 +78,7 @@
             <tbody>
               <tr *ngFor="let item of listItems">
                 <td>{{item.tag}}</td>
-                <td><a href="/detail/?tag={{item.tag}}&userId={{item.userId}}" target="_blank"><img src="{{item.imageUrl}}" alt="preview"></a></td>
+                <td><a href="detail/{{item.tag}}/{{item.userId}}" target="_blank"><img src="{{item.imageUrl}}" alt="preview"></a></td>
                 <td>{{item.ownerName}}</td>
                 <td>{{item.uploadDate}}</td>
                 <td>{{item.dateTaken}}</td>

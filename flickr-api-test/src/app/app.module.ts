@@ -8,33 +8,33 @@ import { AlertModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './components/main/app.component';
 import { DetailComponent } from './components/detail/detail.component';
-import { RootComponent } from './components/root/root.component';
-import { routing, mainRoutingProviders } from './main.route';
+import { HomeComponent } from './components/home/home.component';
 
-export const routes: Routes = [
+const appRoutes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
-  { path: 'index', component: AppComponent },
-  { path: 'detail', component: DetailComponent }
+  { path: 'index', component: HomeComponent },
+  { path: 'detail/:tag', component: DetailComponent },
+  { path: 'detail/:tag/:userId', component: DetailComponent },
+  {path: '**', component: HomeComponent} 
 ];
 
 @NgModule({
   declarations: [
-    RootComponent,
+    HomeComponent,
     AppComponent,
-    DetailComponent
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
     CommonModule,
     HttpModule,
-    FormsModule,
-    mainRoutingProviders,
+    FormsModule,    
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(appRoutes, {enableTracing: false}),
     AlertModule.forRoot(),    
   ],
   providers: [],
-  entryComponents: [RootComponent],
+  entryComponents: [AppComponent],
   bootstrap: [AppComponent],
   exports: [RouterModule]
 })

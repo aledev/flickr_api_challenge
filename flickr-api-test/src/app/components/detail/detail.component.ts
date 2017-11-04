@@ -6,7 +6,7 @@ import { SearchModel } from '../../_models/search.model';
 import { LiteItemModel } from '../../_models/lite-item.model';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'detail-page',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css'],
   providers: [FlickrService]
@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit, OnDestroy  {
   ngOnInit() {   
     this.sub = this.route.params.subscribe(params => {
       this.tag = params['tag'];
-      this.userId = params['userId'] === null ? '' : params['userId'];     
+      this.userId = params['userId'] === undefined ? '' : params['userId'];    
       this.getDetailData(); 
    });
   }
@@ -43,6 +43,9 @@ export class DetailComponent implements OnInit, OnDestroy  {
         itemsPerPage : 0,
         success : false                
       };
+
+      console.log(searchItem);
+
       // We call the flicker-api to get the detail data
       this.flickrService.getPhotosDetail(searchItem)
       .subscribe(
@@ -56,9 +59,9 @@ export class DetailComponent implements OnInit, OnDestroy  {
             response.forEach(element => {
               // Create a new ListModel object with the service properties
               let item : LiteItemModel = {
-                tag: response[0].tag,
-                imageUrl: response[0].imageUrl,
-                title: response[0].title
+                tag: element.tag,
+                imageUrl: element.imageUrl,
+                title: element.title
               };              
               // Object that will be added to the list  
               this.listItems.push(item); 
